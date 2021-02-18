@@ -22,24 +22,48 @@ def main(argv):
     parser.add_argument('-t', metavar='title', help='show only those classes whose course title contains title')
 
     args = parser.parse_args()
-    print(args)
 
-    wrapper = textwrap.TextWrapper(width=51)
+    wrapper = textwrap.TextWrapper(width=49)
 
     if not path.isfile(DATABASE_NAME):
-        print('database reg.sqlite not found', file=stderr)
+        print(argv[0] + ': database reg.sqlite not found', file=stderr)
         exit(1)
 
     try:
         connection = connect(DATABASE_NAME)
         cursor = connection.cursor()
         # class ID, dept, course num, area, title
+        argsused = []
         stmtStr = 'SELECT classid, dept, coursenum, area, title ' + \
             'FROM classes, courses, crosslistings ' + \
-            'WHERE courses.courseid = crosslistings.courseid AND classes.courseid = courses.courseid ' + \
-            'AND ' + \
-            'ORDER BY dept ASC, coursenum ASC, classid ASC'
-        cursor.execute(stmtStr)
+            'WHERE courses.courseid = crosslistings.courseid AND classes.courseid = courses.courseid '
+                
+        if args.d != None: 
+            stmtStr += 'AND crosslistings.dept LIKE ? '
+            args.d = args.d.replace('%', '~%')
+            args.d = args.d.replace('_', '~_')
+            argsused.append('%' + args.d + '%')
+        if args.n != None: 
+            stmtStr += 'AND crosslistings.coursenum LIKE ? '
+            args.n = args.n.replace('%', '~%')
+            args.n = args.n.replace('_', '~_')
+            argsused.append('%' + args.n + '%')
+        if args.a != None:
+            stmtStr += 'AND courses.area LIKE ? '
+            args.a = args.a.replace('%', '~%')
+            args.a = args.a.replace('_', '~_')
+            argsused.append('%' + args.a + '%')
+        if args.t != None:
+            stmtStr += 'AND courses.title LIKE ? '
+            args.t = args.t.replace('%', '~%')
+            args.t = args.t.replace('_', '~_')
+            argsused.append('%' + args.t + '%')
+        
+        stmtStr += "ESCAPE '~' ORDER BY dept ASC, coursenum ASC, classid ASC"
+        cursor.execute(stmtStr, argsused)
+
+        print('ClsId Dept CrsNum Area Title')
+        print('----- ---- ------ ---- -----')
 
         row = cursor.fetchone()
         while row is not None:
@@ -55,16 +79,16 @@ def main(argv):
                 if (index == 0):
                     new_title += value
                 else:
-                    new_title += '\n'+23*' ' + value
+                    new_title += '\n' + 23 * ' ' + value
             
-            print(f'{row[0]:5}  {row[1]:3}   {row[2].rjust(4)}   {row[3]:2} {new_title}')
+            print(f'{row[0]:5}  {row[1]:3}   {row[2].rjust(4)}  {row[3].rjust(3)} {new_title}')
             row = cursor.fetchone()
         
         cursor.close()
         connection.close()
 
     except Exception as e:
-        print(e, file=stderr)
+        print(argv[0] + ': ' + str(e), file=stderr)
         exit(1)
 
     
