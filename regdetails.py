@@ -16,7 +16,7 @@ def main(argv):
     DATABASE_NAME = 'reg.sqlite'
 
     parser = argparse.ArgumentParser(description='Registrar application: show details about a class', allow_abbrev=False)
-    parser.add_argument('classid', type=int, help='the id of the class whose details should be shown')
+    parser.add_argument('classid', type=int, nargs=1, help='the id of the class whose details should be shown')
 
     wrapper = textwrap.TextWrapper(width=72)
     
@@ -33,9 +33,9 @@ def main(argv):
         # classes                                            crosslistings          courses                        coursesprofs -> profs
         stmtStr1 = 'SELECT courseid, days, starttime, endtime, bldg, roomnum ' + \
             'FROM classes WHERE classes.classid = ?'
-                
-        cursor.execute(stmtStr1, args.classid)
-            
+
+        cursor.execute(stmtStr1, [args.classid[0]])
+          
         row = cursor.fetchone()
         
         if row is not None:
@@ -48,7 +48,7 @@ def main(argv):
             print('Room: ' + row[5] + '\n')
         else:
             print(argv[0] + ': no class with classid ' + str(args.classid[0]) + ' exists', file=stderr)
-            exit(1) 
+            exit(1)  
         
         stmtStr2 = 'SELECT dept, coursenum, area, title, descrip, prereqs ' + \
             'FROM crosslistings, courses, coursesprofs ' + \
@@ -81,7 +81,7 @@ def main(argv):
         
         stmtStr3 = 'SELECT profid FROM coursesprofs WHERE courseid = ?'
         cursor.execute(stmtStr3, [courseid])
-        
+
         profid = []
         row = cursor.fetchone()
         while row is not None:
