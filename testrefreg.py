@@ -11,6 +11,7 @@ import os
 def main():
 
     # ref_reg.pyc
+    os.system('cd /u/cos333/Asgt1Solution')
 
     # Boundary Tests
     os.system('python ref_reg.pyc')
