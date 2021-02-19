@@ -6,7 +6,7 @@
 #----------------------------------------------------------------------------------
 
 import argparse
-imporrt textwrap
+import textwrap
 from os import path
 from sys import argv, stderr, exit
 from sqlite3 import connect
@@ -16,10 +16,10 @@ def main(argv):
     DATABASE_NAME = 'reg.sqlite'
 
     parser = argparse.ArgumentParser(description='Registrar application: show overviews of classes', allow_abbrev=False)
-    parser.add_argument('-d', metavar='dept', help='show only those classes whose department contains dept')
-    parser.add_argument('-n', metavar='num', help='show only those classes whose course number contains num')
-    parser.add_argument('-a', metavar='area', help='show only those classes whose distrib area contains area')
-    parser.add_argument('-t', metavar='title', help='show only those classes whose course title contains title')
+    parser.add_argument('-d', metavar='dept', nargs=1, help='show only those classes whose department contains dept')
+    parser.add_argument('-n', metavar='num', nargs=1, help='show only those classes whose course number contains num')
+    parser.add_argument('-a', metavar='area', nargs=1, help='show only those classes whose distrib area contains area')
+    parser.add_argument('-t', metavar='title', nargs=1, help='show only those classes whose course title contains title')
 
     args = parser.parse_args()
 

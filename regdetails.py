@@ -16,7 +16,7 @@ def main(argv):
     DATABASE_NAME = 'reg.sqlite'
 
     parser = argparse.ArgumentParser(description='Registrar application: show details about a class', allow_abbrev=False)
-    parser.add_argument('classid', nargs=1, help='the id of the class whose details should be shown')
+    parser.add_argument('classid', type=int, help='the id of the class whose details should be shown')
 
     wrapper = textwrap.TextWrapper(width=72)
     
