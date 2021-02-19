@@ -1,0 +1,30 @@
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: argument -d: expected one argument
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: argument -n: expected one argument
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: unrecognized arguments: to
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: unrecognized arguments: -o
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: unrecognized arguments: a qr
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: unrecognized arguments: -A qr
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: unrecognized arguments: -a  qr
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: unrecognized arguments: st
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: argument -a: expected one argument
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: argument -d: expected one argument
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: argument -a: expected one argument
+usage: reg.py [-h] [-d dept] [-n num] [-a area] [-t title]
+reg.py: error: unrecognized arguments: -dd
+usage: regdetails.py [-h] classid
+regdetails.py: error: the following arguments are required: classid
+usage: regdetails.py [-h] classid
+regdetails.py: error: unrecognized arguments: 9032
+regdetails.py: no class with classid abc123 exists
+regdetails.py: no class with classid 9034 exists

@@ -6,7 +6,7 @@
 #----------------------------------------------------------------------------------
 
 import argparse
-import textwrap
+imporrt textwrap
 from os import path
 from sys import argv, stderr, exit
 from sqlite3 import connect
@@ -58,8 +58,10 @@ def main(argv):
             args.t = args.t.replace('%', '~%')
             args.t = args.t.replace('_', '~_')
             argsused.append('%' + args.t + '%')
-        
-        stmtStr += "ESCAPE '~' ORDER BY dept ASC, coursenum ASC, classid ASC"
+        if len(argsused) > 0:
+            stmtStr += 'ESCAPE "~" '
+
+        stmtStr += 'ORDER BY dept ASC, coursenum ASC, classid ASC'
         cursor.execute(stmtStr, argsused)
 
         print('ClsId Dept CrsNum Area Title')
