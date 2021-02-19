@@ -22,6 +22,7 @@ def main(argv):
     parser.add_argument('-t', metavar='title', nargs=1, help='show only those classes whose course title contains title')
 
     args = parser.parse_args()
+    print(args)
 
     wrapper = textwrap.TextWrapper(width=49)
 
@@ -37,27 +38,27 @@ def main(argv):
         stmtStr = 'SELECT classid, dept, coursenum, area, title ' + \
             'FROM classes, courses, crosslistings ' + \
             'WHERE courses.courseid = crosslistings.courseid AND classes.courseid = courses.courseid '
-                
+
         if args.d != None: 
             stmtStr += 'AND crosslistings.dept LIKE ? '
-            args.d = args.d.replace('%', '~%')
-            args.d = args.d.replace('_', '~_')
-            argsused.append('%' + args.d + '%')
+            argsd = args.d[0].replace('%', '~%')
+            argsd = args.d[0].replace('_', '~_')
+            argsused.append('%' + argsd + '%')
         if args.n != None: 
             stmtStr += 'AND crosslistings.coursenum LIKE ? '
-            args.n = args.n.replace('%', '~%')
-            args.n = args.n.replace('_', '~_')
-            argsused.append('%' + args.n + '%')
+            argsn = args.n[0].replace('%', '~%')
+            argsn = args.n[0].replace('_', '~_')
+            argsused.append('%' + argsn + '%')
         if args.a != None:
             stmtStr += 'AND courses.area LIKE ? '
-            args.a = args.a.replace('%', '~%')
-            args.a = args.a.replace('_', '~_')
-            argsused.append('%' + args.a + '%')
+            argsa = args.a[0].replace('%', '~%')
+            argsa = args.a[0].replace('_', '~_')
+            argsused.append('%' + argsa + '%')
         if args.t != None:
             stmtStr += 'AND courses.title LIKE ? '
-            args.t = args.t.replace('%', '~%')
-            args.t = args.t.replace('_', '~_')
-            argsused.append('%' + args.t + '%')
+            argst = args.t[0].replace('%', '~%')
+            argst = args.t[0].replace('_', '~_')
+            argsused.append('%' + argst + '%')
         if len(argsused) > 0:
             stmtStr += 'ESCAPE "~" '
 
