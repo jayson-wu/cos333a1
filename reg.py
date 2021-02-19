@@ -22,7 +22,7 @@ def main(argv):
     parser.add_argument('-t', metavar='title', nargs=1, help='show only those classes whose course title contains title')
 
     args = parser.parse_args()
-    print(args)
+    #print(args)
 
     wrapper = textwrap.TextWrapper(width=49)
 
@@ -42,22 +42,22 @@ def main(argv):
         if args.d != None: 
             stmtStr += 'AND crosslistings.dept LIKE ? '
             argsd = args.d[0].replace('%', '~%')
-            argsd = args.d[0].replace('_', '~_')
+            argsd = argsd.replace('_', '~_')
             argsused.append('%' + argsd + '%')
         if args.n != None: 
             stmtStr += 'AND crosslistings.coursenum LIKE ? '
             argsn = args.n[0].replace('%', '~%')
-            argsn = args.n[0].replace('_', '~_')
+            argsn = argsn.replace('_', '~_')
             argsused.append('%' + argsn + '%')
         if args.a != None:
             stmtStr += 'AND courses.area LIKE ? '
             argsa = args.a[0].replace('%', '~%')
-            argsa = args.a[0].replace('_', '~_')
+            argsa = argsa.replace('_', '~_')
             argsused.append('%' + argsa + '%')
         if args.t != None:
             stmtStr += 'AND courses.title LIKE ? '
             argst = args.t[0].replace('%', '~%')
-            argst = args.t[0].replace('_', '~_')
+            argst = argst.replace('_', '~_')
             argsused.append('%' + argst + '%')
         if len(argsused) > 0:
             stmtStr += 'ESCAPE "~" '
